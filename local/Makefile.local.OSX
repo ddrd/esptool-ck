@@ -1,4 +1,4 @@
-TARGET		= esptool
+TARGET		= esptool-plduino
 
 INSTALLDIR_BIN	= /usr/local/bin
 CC=clang

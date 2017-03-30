@@ -45,12 +45,14 @@ OBJECTS		:= \
 	argparse/argparse_binimagecmd.o \
 	argparse/argparse_commcmd.o \
 	argparse/argparse_elfcmd.o \
+	argparse/argparse_avrdudecmd.o \
 	binimage/esptool_binimage.o \
 	elf/esptool_elf.o \
 	elf/esptool_elf_object.o \
 	espcomm/delay.o \
 	espcomm/espcomm.o \
 	espcomm/espcomm_boards.o \
+	espcomm/espcomm_plduino_avrdude.o \
 	infohelper/infohelper.o \
 	serialport/serialport.o \
 	main.o

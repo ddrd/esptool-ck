@@ -37,6 +37,7 @@
 #include "serialport.h"
 #include "espcomm_boards.h"
 #include "delay.h"
+#include "espcomm_plduino_avrdude.h"
 
 const int progress_line_width = 80;
 
@@ -275,8 +276,13 @@ int espcomm_open(void)
 	if (espcomm_is_open)
 		return 1;
 
+    dump_arduino_sketch(espcomm_port, espcomm_get_temphex_path());
+    flash_arduino_helper_sketch(espcomm_port);
+
     if(serialport_open(espcomm_port, espcomm_baudrate))
     {
+        printf("Preparing the device, please wait...\n");
+        espcomm_delay_ms(3000);
         LOGINFO("opening bootloader");
 		if (espcomm_sync())
 		{
@@ -292,6 +298,7 @@ void espcomm_close(void)
 {
     LOGINFO("closing bootloader");
     serialport_close();
+    flash_arduino_sketch(espcomm_port, espcomm_get_temphex_path());
 }
 
 int espcomm_set_flash_params(uint32_t device_id, uint32_t chip_size,

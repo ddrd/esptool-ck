@@ -1,8 +1,8 @@
 /**********************************************************************************
  **********************************************************************************
  ***
- ***    argparese.h
- ***    - header file for argparse.c
+ ***    argparse_commcmd.h
+ ***    - include file for the comm-commands argument parser
  ***
  ***    Copyright (C) 2014 Christian Klippel <ck@atelier-klippel.de>
  ***
@@ -22,13 +22,9 @@
  ***
  **/
 
-#ifndef ARGPARSE_H
-#define ARGPARSE_H
+#ifndef ARGPARSE_AVRDUDECMD_H
+#define ARGPARSE_AVRDUDECMD_H
 
-int parse_arg(int num_args, char **arg_ptr);
-int argparse_elfcmd(int num_args, char **arg_ptr);
-int argparse_binimagecmd(int num_args, char **arg_ptr);
-int argparse_commcmd(int num_args, char **arg_ptr);
 int argparse_avrdudecmd(int num_args, char **arg_ptr);
 
 #endif

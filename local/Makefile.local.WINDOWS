@@ -1,4 +1,4 @@
-TARGET		= esptool.exe
+TARGET		= esptool-plduino.exe
 
 INSTALLDIR_BIN	= ~
 TARGET_FLAGS	= -Wl,-static -static-libgcc

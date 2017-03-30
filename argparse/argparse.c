@@ -28,6 +28,7 @@
 #include "argparse_binimagecmd.h"
 #include "argparse_commcmd.h"
 #include "argparse_elfcmd.h"
+#include "argparse_avrdudecmd.h"
 
 // main parser state machine, returns the number of arguments used by
 // the called sub-parser
@@ -159,6 +160,10 @@ int parse_arg(int num_args, char **arg_ptr)
 
             case 'q':
                 return 1;
+                break;
+
+            case 'a':
+                return argparse_avrdudecmd(num_args, arg_ptr);
                 break;
 
             case '?':
