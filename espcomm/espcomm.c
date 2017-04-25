@@ -271,28 +271,44 @@ static int espcomm_sync(void)
     return 0;
 }
 
+
+void wait_for_esp8266_boot (const char *port)
+{
+    printf("Waiting for ESP8266 to boot...\n");
+    espcomm_delay_ms(3000);
+}
+
 int espcomm_open(void)
 {
-	if (espcomm_is_open)
-		return 1;
+    if (espcomm_is_open)
+        return 1;
 
     dump_arduino_sketch(espcomm_port, espcomm_get_temphex_path());
     flash_arduino_helper_sketch(espcomm_port);
 
+    printf("\nOpening the port...\n");
     if(serialport_open(espcomm_port, espcomm_baudrate))
     {
         printf("Preparing the device, please wait...\n");
-        espcomm_delay_ms(3000);
+        wait_for_esp8266_boot(espcomm_port);
         LOGINFO("opening bootloader");
-		if (espcomm_sync())
-		{
-			espcomm_is_open = true;
-			return 1;
-		}
+        if (espcomm_sync())
+        {
+            espcomm_is_open = true;
+            return 1;
+        }
+        else
+        {
+            // Serial port is open but no sync. Close the port and flash Mega's firmware back.
+            serialport_close();
+            flash_arduino_sketch(espcomm_port, espcomm_get_temphex_path());
+            printf("\n\nESP8266 ERROR: uploading failed.\n");
+        }
     }
 
     return 0;
 }
+
 
 void espcomm_close(void)
 {
